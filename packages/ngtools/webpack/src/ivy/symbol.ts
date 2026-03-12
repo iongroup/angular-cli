@@ -6,11 +6,14 @@
  * found in the LICENSE file at https://angular.dev/license
  */
 
+import { CompilerOptions } from 'typescript';
+
 export const AngularPluginSymbol: unique symbol = Symbol.for('@ngtools/webpack[angular-compiler]');
 
 export interface EmitFileResult {
   content?: string;
   map?: string;
+  declaration?: string;
   dependencies: readonly string[];
   hash?: Uint8Array;
 }
@@ -35,6 +38,8 @@ export class FileEmitterRegistration {
 
 export class FileEmitterCollection {
   #registrations: FileEmitterRegistration[] = [];
+
+  public compilerOptions!: CompilerOptions;
 
   register(): FileEmitterRegistration {
     const registration = new FileEmitterRegistration();

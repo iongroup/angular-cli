@@ -80,9 +80,6 @@ export function angularWebpackLoader(
       if (result.declaration && fileEmitter.compilerOptions.declaration) {
         let target = this.resourcePath.replace('.ts', '.d.ts');
         if (fileEmitter.compilerOptions.declarationDir) {
-          if (!fileEmitter.compilerOptions.baseUrl) {
-            throw new Error('When declarationDir is specified, baseUrl is required as well');
-          }
           const relDir = path.relative(path.join(fileEmitter.compilerOptions.basePath!, fileEmitter.compilerOptions.baseUrl || "./"), target);
           target = path.join(fileEmitter.compilerOptions.declarationDir, relDir);
         }

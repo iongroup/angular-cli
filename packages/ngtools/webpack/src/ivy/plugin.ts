@@ -6,6 +6,8 @@
  * found in the LICENSE file at https://angular.dev/license
  */
 
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+
 import type { CompilerHost, CompilerOptions, NgtscProgram } from '@angular/compiler-cli';
 import { strict as assert } from 'node:assert';
 import * as ts from 'typescript';
@@ -327,8 +329,9 @@ export class AngularWebpackPlugin {
       compilation.compiler.webpack.NormalModule.getCompilationHooks(compilation).loader.tap(
         PLUGIN_NAME,
         (context) => {
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
           fileEmitters!.compilerOptions = this.compilerOptions;
+
           const loaderContext = context as typeof context & {
             [AngularPluginSymbol]?: FileEmitterCollection;
           };

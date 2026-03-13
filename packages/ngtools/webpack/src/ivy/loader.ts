@@ -6,6 +6,9 @@
  * found in the LICENSE file at https://angular.dev/license
  */
 
+/* eslint-disable max-len */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import type { LoaderContext } from 'webpack';
@@ -80,7 +83,7 @@ export function angularWebpackLoader(
           if (!fileEmitter.compilerOptions.baseUrl) {
             throw new Error('When declarationDir is specified, baseUrl is required as well');
           }
-          const relDir = path.relative(fileEmitter.compilerOptions.baseUrl, target);
+          const relDir = path.relative(path.join(fileEmitter.compilerOptions.basePath!, fileEmitter.compilerOptions.baseUrl || "./"), target);
           target = path.join(fileEmitter.compilerOptions.declarationDir, relDir);
         }
         if (!fs.existsSync(path.dirname(target))) {

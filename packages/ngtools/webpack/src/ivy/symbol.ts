@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.dev/license
  */
 
-import { CompilerOptions } from 'typescript';
+import { CompilerOptions } from "@angular/compiler-cli";
 
 export const AngularPluginSymbol: unique symbol = Symbol.for('@ngtools/webpack[angular-compiler]');
 

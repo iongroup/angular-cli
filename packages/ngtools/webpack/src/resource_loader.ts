@@ -319,7 +319,7 @@ export class WebpackResourceLoader {
     // Evaluate code
 
     // css-loader requires the btoa function to exist to correctly generate inline sourcemaps
-    const context: { btoa: (input: string) => string; resource?: string | { default?: string } } = {
+    const context: { btoa: (input: string) => string; resource?: string | { default?: string | { toString?(): string } } } = {
       btoa(input) {
         return Buffer.from(input).toString('base64');
       },
@@ -336,6 +336,12 @@ export class WebpackResourceLoader {
       return context.resource;
     } else if (typeof context.resource?.default === 'string') {
       return context.resource.default;
+    } else if (
+      typeof context.resource?.default === 'object' && 
+      Object.hasOwn(context.resource?.default, "toString") && 
+      typeof context.resource?.default?.toString === 'function'
+    ) {
+      return context.resource.default.toString();
     }
 
     throw new Error(`The loader "${filename}" didn't return a string.`);
